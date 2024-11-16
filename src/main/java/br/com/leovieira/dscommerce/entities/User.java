@@ -27,7 +27,7 @@ public class User {
 	private String password;
 	
 	@OneToMany(mappedBy = "client")
-	private List<Order> order = new ArrayList<>();
+	private List<Order> orders = new ArrayList<>();
 	
 	public User() {}
 	
@@ -41,7 +41,7 @@ public class User {
 	}
 
 	public List<Order> getOrder() {
-		return order;
+		return orders;
 	}
 
 	public Long getId() {
