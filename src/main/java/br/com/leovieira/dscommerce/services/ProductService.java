@@ -50,14 +50,14 @@ public class ProductService {
 			entity = repository.save(entity);
 			return new ProductDTO(entity);
 		}catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Recurso não encontrado");
+			throw new ResourceNotFoundException();
 		}
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
 		if(!repository.existsById(id)) {
-			throw new ResourceNotFoundException("Recurso não encontrado");
+			throw new ResourceNotFoundException();
 		}
 		try {
 			repository.deleteById(id);
