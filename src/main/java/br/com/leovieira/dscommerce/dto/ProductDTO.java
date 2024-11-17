@@ -18,8 +18,6 @@ public class ProductDTO {
 		this.price = p.getPrice();
 		this.imgUrl = p.getImgUrl();
 	}
-	
-	
 
 	public Long getId() {
 		return id;
