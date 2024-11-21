@@ -1,5 +1,7 @@
 package br.com.leovieira.dscommerce.services;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -29,9 +31,12 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAll(Pageable pageable) {
-		Page<Product> result = repository.findAll(pageable);
-		return result.map(x -> new ProductDTO(x));
+	public Page<ProductDTO> findAll(String name, Pageable pageable) {
+		Page<Product> page = repository.findAll(pageable);
+		
+		repository.findProductsCategories(page.stream().collect(Collectors.toList()));
+		
+		return page.map(x -> new ProductDTO(x));
 	}
 	
 	@Transactional

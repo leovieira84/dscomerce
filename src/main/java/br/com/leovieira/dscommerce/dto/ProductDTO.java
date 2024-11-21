@@ -1,5 +1,9 @@
 package br.com.leovieira.dscommerce.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import br.com.leovieira.dscommerce.entities.Product;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -17,6 +21,8 @@ public class ProductDTO {
 	private Double price;
 	private String imgUrl;
 	
+	private List<CategoryDTO> categories = new ArrayList<>();
+	
 	public ProductDTO() {}
 	
 	public ProductDTO(Product p) {
@@ -25,6 +31,12 @@ public class ProductDTO {
 		this.description = p.getDescription();
 		this.price = p.getPrice();
 		this.imgUrl = p.getImgUrl();
+		
+		this.categories = p.getCategories().stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
+	}
+
+	public List<CategoryDTO> getCategories() {
+		return categories;
 	}
 
 	public Long getId() {
