@@ -35,7 +35,7 @@ public class User {
 	private List<Order> orders = new ArrayList<>();
 	
 	@ManyToMany
-	@JoinTable(name = "tb_users_roles",
+	@JoinTable(name = "tb_user_role",
 				joinColumns = @JoinColumn(name="user_id"),
 				inverseJoinColumns = @JoinColumn(name="role_id"))
 	private Set<Role> roles = new HashSet<>();
