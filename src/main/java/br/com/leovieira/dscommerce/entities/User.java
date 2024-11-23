@@ -93,8 +93,21 @@ public class User {
 		this.password = password;
 	}
 	
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
 	public void addRole(Role r) {
 		roles.add(r);
+	}
+	
+	public boolean hasRole(String authority) {
+		for(Role r : roles) {
+			if(r.getAuthority().equals(authority))
+				return true;
+		}
+		return false;
 	}
 
 	@Override
