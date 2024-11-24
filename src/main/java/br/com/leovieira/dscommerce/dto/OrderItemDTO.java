@@ -3,27 +3,27 @@ package br.com.leovieira.dscommerce.dto;
 import br.com.leovieira.dscommerce.entities.OrderItem;
 
 public class OrderItemDTO {
-	private Long produtId;
+	private Long productId;
 	private String name;
 	private Double price;
 	private Integer quantity;
 	
 	public OrderItemDTO(Long produtId, String name, Double price, Integer quantity) {
-		this.produtId = produtId;
+		this.productId = produtId;
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
 	}
 	
 	public OrderItemDTO(OrderItem entity) {
-		this.produtId = entity.getProduct().getId();
+		this.productId = entity.getProduct().getId();
 		this.name = entity.getProduct().getName();
 		this.price = entity.getProduct().getPrice();
 		this.quantity = entity.getQuantity();
 	}
 
-	public Long getProdutId() {
-		return produtId;
+	public Long getProductId() {
+		return productId;
 	}
 
 	public String getName() {
