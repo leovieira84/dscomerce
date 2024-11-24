@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import br.com.leovieira.dscommerce.entities.Product;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -21,6 +22,7 @@ public class ProductDTO {
 	private Double price;
 	private String imgUrl;
 	
+	@NotEmpty(message = "Deve-se informar ao menos uma categoria")
 	private List<CategoryDTO> categories = new ArrayList<>();
 	
 	public ProductDTO() {}

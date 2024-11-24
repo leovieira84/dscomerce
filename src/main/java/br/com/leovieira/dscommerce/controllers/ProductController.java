@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.leovieira.dscommerce.dto.ProductDTO;
+import br.com.leovieira.dscommerce.dto.ProductMinDTO;
 import br.com.leovieira.dscommerce.services.ProductService;
 import jakarta.validation.Valid;
 
@@ -36,14 +37,14 @@ public class ProductController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(defaultValue = "") String name, Pageable pageable) {
-		Page<ProductDTO> page = service.findAll(name, pageable);
+	public ResponseEntity<Page<ProductMinDTO>> findAll(@RequestParam(defaultValue = "") String name, Pageable pageable) {
+		Page<ProductMinDTO> page = service.findAll(name, pageable);
 		
 		return ResponseEntity.ok(page);
 	}
 	
 	@PostMapping
-	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto) {
 		dto = service.insert(dto);
 		
@@ -54,14 +55,14 @@ public class ProductController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO dto) {
 		dto = service.update(id,dto);
 		return ResponseEntity.ok(dto);
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();

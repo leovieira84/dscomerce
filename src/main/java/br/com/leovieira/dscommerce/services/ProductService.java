@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.leovieira.dscommerce.dto.CategoryDTO;
 import br.com.leovieira.dscommerce.dto.ProductDTO;
+import br.com.leovieira.dscommerce.dto.ProductMinDTO;
+import br.com.leovieira.dscommerce.entities.Category;
 import br.com.leovieira.dscommerce.entities.Product;
 import br.com.leovieira.dscommerce.repositories.ProductRepository;
 import br.com.leovieira.dscommerce.services.exceptions.DatabaseException;
@@ -31,12 +34,12 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAll(String name, Pageable pageable) {
+	public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
 		Page<Product> page = repository.findAll(pageable);
 		
 		repository.findProductsCategories(page.stream().collect(Collectors.toList()));
 		
-		return page.map(x -> new ProductDTO(x));
+		return page.map(x -> new ProductMinDTO(x));
 	}
 	
 	@Transactional
@@ -77,5 +80,13 @@ public class ProductService {
 		entity.setDescription(dto.getDescription());
 		entity.setPrice(dto.getPrice());
 		entity.setImgUrl(dto.getImgUrl());
+		
+		entity.getCategories().clear();
+		for(CategoryDTO catDto : dto.getCategories()) {
+			Category cat = new Category();
+			cat.setId(catDto.getId());
+			cat.setName(catDto.getName());
+			entity.getCategories().add(cat);
+		}
 	}
 }
