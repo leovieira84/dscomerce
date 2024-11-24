@@ -25,7 +25,7 @@ public class OrderController {
 	private OrderService service;
 	
 	@GetMapping(value = "/{id}")
-	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN','ROLE_CLIENT')")
 	public ResponseEntity<OrderDTO> findById(@PathVariable Long id) {
 		OrderDTO dto = service.findById(id);
 		
