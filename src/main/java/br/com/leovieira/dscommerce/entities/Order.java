@@ -86,6 +86,14 @@ public class Order {
 		return items.stream().map(x -> x.getProduct()).toList();
 	}
 
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
